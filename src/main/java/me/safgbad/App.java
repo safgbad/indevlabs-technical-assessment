@@ -4,6 +4,11 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+// NOTE. In this implementation it's assumed that array may have several missing numbers due to condition
+//       "Function finds a FIRST missing number occurrence in the sequence".
+
+// NOTE. In this implementation it's assumed that array may have duplicated numbers since the uniqueness condition
+//       is not specified in the text of the task.
 public class App {
     /**
      * Method accepts array of sequent numbers (not necessarily distinct) with one or several missing elements.
@@ -45,18 +50,18 @@ public class App {
     }
 
     // NOTE. Let's denote arr.length as 'size'. We could say that array has no missing values before
-    // checking (min, max) interval if we knew that numbers in array are distinct – condition would be
-    // (max - min == size - 1).
+    //       checking (min, max) interval if we knew that numbers in array are distinct – condition would be
+    //       (max - min == size - 1).
 
-    // NOTE. With assumption that all the numbers are distinct and there can be only one missing element,
-    // we could solve the problem just in one cycle. The idea would be to sum up (arr[i] mod arr.length) using BigInteger.
-    // Expected sum will be (size * (size - 1) / 2). Let's denote the difference between two sums as 'diff'.
-    // If (diff == 0) then we add 'size' to diff (diff = diff == 0 ? size : diff).
-    // Then missing element would be found as ((min div size) * size) + diff.
-    // In this case we would have to pay special attention to situation when the missing number is zero
-    // (i.e. using three flags doesContainPositiveNumbers, doesContainNegativeNumbers, doesContainZero =>
-    // condition when we sure that missing value is zero would be
-    // (doesContainPositiveNumbers && doesContainNegativeNumbers && !doesContainZero)).
+    // NOTE. With assumption that all the numbers are distinct and there can be only one missing element, we could
+    //       solve the problem just in one cycle. The idea would be to sum up (arr[i] mod arr.length) using BigInteger.
+    //       Expected sum will be (size * (size - 1) / 2).
+    //       Let's denote the difference between two sums as 'diff'. If (diff == 0) then diff = size.
+    //       Missing element would be found as ((min div size) * size) + diff.
+    //       In this case we would have to pay special attention to situation when the missing number is zero
+    //       (i.e. using three flags doesContainPositiveNumbers, doesContainNegativeNumbers, doesContainZero =>
+    //       condition when we sure that missing value is zero would be
+    //       (doesContainPositiveNumbers && doesContainNegativeNumbers && !doesContainZero)).
 
     public static void main(String[] args) {
         int[] arr = {1,2,3,5};
